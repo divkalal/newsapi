@@ -52,9 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
         future: apiService.getArticle(),
         builder: (BuildContext context, AsyncSnapshot<List<Article>>snapshot){
           if(snapshot.hasData){
-            return Text('Herreeeee');
+            return ListView.builder(
+          itemCount: snapshot.data!.length,
+          itemBuilder: (BuildContext context, index){
+              return ListTile(
+                title: Text('${snapshot.data![index].title}'),
+                subtitle: Text('${snapshot.data![index].description}'),
+                trailing: Image.network('${snapshot.data![index].urlToImage}'),
+              );
           }
-          return Center(child: CircularProgressIndicator());
+          );
+          }
+          return Center(child: CircularProgressIndicator()
+          );
         }
       )
     );
